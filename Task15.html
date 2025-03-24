@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Age Calculator</title>
+</head>
+<body>
+ <h2>Age Calculator</h2>
+    <input type="text" id="name_Input" placeholder="Enter your name">
+    <input type="date" id="dob_Input">
+    <button id="calculateBtn">Calculate Age</button>
+    <p id="output"></p>
+
+    <script>
+        class Age {
+            constructor(name, year) {
+                this.name = name;
+                this.year = year;
+            }
+
+            getAge(currentYear) {
+                return currentYear - this.year;
+            }
+        }
+
+        document.getElementById("calculateBtn").addEventListener("click", function () {
+            let name = document.getElementById("name_Input").value.trim();
+            let dobInput = document.getElementById("dob_Input").value;
+
+            let dob = new Date(dobInput);
+            let birthYear = dob.getFullYear();
+
+            const currentYear = new Date().getFullYear();
+
+            let myAge = new Age(name, birthYear);
+            let ageOfMyself = myAge.getAge(currentYear);
+
+            document.getElementById("output").textContent = `${name}, your age is: ${ageOfMyself}`;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+</head>
+    <body>
+        <div id="output">
+        <input type="num" id="n1"/>
+        <input type="num" id="n2"/>
+        <button onclick="generateRan();">Generate Random Number</button>
+        <div id="output"></div>
+    </div>
+    </body>
+    <script>
+    
+        function generateRan(){
+            let output = document.getElementById('output');
+            output.style.display = 'none';
+            setTimeout(() => {
+                output.style.display = 'block';
+            }, 3000);
+        }
+       setInterval(generateRan,3000);
+       
+    </script>
+</html>
+

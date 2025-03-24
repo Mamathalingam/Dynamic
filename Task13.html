@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div class="container">
+        <h2>Add UI to Object</h2>
+        <input placeholder="Name" type="text" id="name">
+        <input placeholder="Student ID" type="text" id="student_id">
+        <input placeholder="Height" type="text" id="height">
+        <input placeholder="Color" type="text" id="color">
+        
+        <button onclick="insertInfo()">Add Info</button>
+        <button onclick="showInfo()">Show Info</button>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const people = [];
+
+        function insertInfo() {
+            const person = {
+                name: document.getElementById('name').value,
+                student_id: document.getElementById('student_id').value,
+                height: document.getElementById('height').value,
+                color: document.getElementById('color').value,
+                description: function(){
+                    return `This is ${this.name}, ID: ${this.student_id}, ${this.height} tall, with ${this.color} color.`;
+                }
+            };
+
+            people.push(person);
+            document.getElementById('name').value = "";
+            document.getElementById('student_id').value = "";
+            document.getElementById('height').value = "";
+            document.getElementById('color').value = "";
+        }
+
+        function showInfo(){
+            let output = people.map(person => person.description()).join("<br>");
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+</body>
+</html>

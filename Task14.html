@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f5f0;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 48%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-green {
+            background-color: #a8d5ba;
+            color: black;
+        }
+
+        .btn-red {
+            background-color: #e8a49c;
+            color: black;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: left;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .search-box {
+            margin-top: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Information</h2>
+
+        <div class="input-row">
+            <input placeholder="Name" type="text" id="name">
+            <input placeholder="Student ID" type="text" id="student_id">
+        </div>
+
+        <div class="input-row">
+            <input placeholder="Height" type="text" id="height">
+            <input placeholder="Color" type="text" id="color">
+        </div>
+
+        <div class="btn-row">
+            <button class="btn-green" onclick="insertInfo()">Insert Info</button>
+            <button class="btn-red" onclick="clearInputs()">Clear Inputs</button>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn-green" onclick="showAll()">Show All</button>
+            <button class="btn-red" onclick="clearDisplay()">Clear Display</button>
+        </div>
+
+        <div id="output"></div>
+
+        <div class="search-box">
+            <input placeholder="Enter Search" type="text" id="search" oninput="searchInfo()">
+        </div>
+    </div>
+
+    <script>
+        function Student(name, student_id, height, color) {
+            this.name = name;
+            this.student_id = student_id;
+            this.height = height;
+            this.color = color;
+
+            this.description = function() {
+                return `Name: ${this.name}, Student ID: ${this.student_id}, Height: ${this.height}, Color: ${this.color}.`;
+            };
+        }
+
+        let students = [];
+
+        function insertInfo() {
+            let name = document.getElementById('name').value;
+            let studentId = document.getElementById('student_id').value;
+            let height = document.getElementById('height').value;
+            let color = document.getElementById('color').value;
+
+            if (name && studentId && height && color) {
+                let student = new Student(name, studentId, height, color);
+                students.push(student);
+                clearInputs();
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function showAll() {
+            displayStudents(students);
+        }
+
+        function clearInputs() {
+            document.getElementById('name').value = "";
+            document.getElementById('student_id').value = "";
+            document.getElementById('height').value = "";
+            document.getElementById('color').value = "";
+        }
+
+        function clearDisplay() {
+            document.getElementById('output').innerHTML = "";
+        }
+
+        function searchInfo() {
+            let searchTerm = document.getElementById('search').value.toLowerCase();
+            
+            if (searchTerm === "") {
+                clearDisplay();
+                return;
+            }
+
+            let filteredStudents = students.filter(student => 
+                student.name.toLowerCase().includes(searchTerm) ||
+                student.student_id.toLowerCase().includes(searchTerm) ||
+                student.height.toLowerCase().includes(searchTerm) ||
+                student.color.toLowerCase().includes(searchTerm)
+            );
+
+            displayStudents(filteredStudents);
+        }
+
+        function displayStudents(studentList) {
+            let outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = "";
+
+            if (studentList.length === 0) {
+                outputDiv.innerHTML = "No results found.";
+                return;
+            }
+
+            studentList.forEach(student => {
+                let studentDiv = document.createElement("div");
+                studentDiv.style.padding = "10px";
+                studentDiv.style.marginTop = "5px";
+                studentDiv.style.border = "1px solid #ccc";
+                studentDiv.style.borderRadius = "5px";
+                studentDiv.textContent = student.description();
+                outputDiv.appendChild(studentDiv);
+            });
+        }
+    </script>
+</body>
+</html>

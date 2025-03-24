@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div>
+	    <h1>Triangle generator</h1>
+            <input type="number" id="input_box" placeholder="Enter a number" onkeyup="Triangle()">
+            <div class="output" id="demo_div"></div>
+        </div>
+        <script>
+            function Triangle() {
+                let text = "";
+                let n = document.getElementById("input_box").value;
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j <= i; j++) {
+                        text += "* ";
+                    }
+                    text += "<br>";
+                }
+                document.getElementById("demo_div").innerHTML = text;
+            }
+        </script>
+    </body>
+</html>
