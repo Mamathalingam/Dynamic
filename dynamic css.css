@@ -52,7 +52,6 @@ iframe {
     width: 100%;
     height: calc(100% - 60px); /* Adjust height to fit below buttons */
     border: none;
-    background-color: #34495e;
 }
 /* button css */
 button {
